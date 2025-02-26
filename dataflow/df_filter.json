@@ -1,0 +1,71 @@
+{
+	"name": "df_filter",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "LS_ADLS",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Department10"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "LS_ADLS",
+						"type": "LinkedServiceReference"
+					},
+					"name": "DepartmentNo10"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Departement10",
+					"description": "Add expression for the filter"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          EmployeeNo as short,",
+				"          Ename as string,",
+				"          Job as string,",
+				"          Mgr as string,",
+				"          Hiredate as date,",
+				"          Salary as double,",
+				"          Commission as string,",
+				"          DepartmentNo as short",
+				"     ),",
+				"     useSchema: false,",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'datafiles',",
+				"     folderPath: 'input',",
+				"     fileName: 'employee.csv',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '',",
+				"     columnNamesAsHeader: true) ~> Department10",
+				"Department10 filter(DepartmentNo == 10 || DepartmentNo == 20) ~> Departement10",
+				"Departement10 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delimited',",
+				"     fileSystem: 'datafiles',",
+				"     folderPath: 'output/department10',",
+				"     columnDelimiter: ',',",
+				"     escapeChar: '\\\\',",
+				"     quoteChar: '',",
+				"     columnNamesAsHeader: true,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DepartmentNo10"
+			]
+		}
+	}
+}

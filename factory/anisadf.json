@@ -1,0 +1,9 @@
+{
+	"name": "anisadf",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "70fd24e9-b01a-4134-9759-d0149cc4ee9f",
+		"tenantId": "92b9c102-f53e-403c-a0de-406664201252"
+	}
+}
